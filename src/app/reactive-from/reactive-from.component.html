@@ -1,0 +1,93 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<form [formGroup]="fromBuild" class="form w-50 m-auto p-2 " >
+
+    <div class="">
+        <label for="id" class="form-label">StudentID</label>
+        <input type="number" class="form-control"  formControlName="id" required>
+    </div>
+    
+    <div>
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control"  formControlName="name" required>
+    </div>
+    <div formGroupName="address">
+        <label for="name" class="form-label">Address</label>
+        <div>
+            <label for="float">Flat No</label>
+            <input type="number" class="form-control"  formControlName="flat" required>
+        </div>
+        <div>
+            <label for="float">Building</label>
+            <input type="text" class="form-control"  formControlName="buildingName" required>
+        </div>
+        <div>
+            <label for="float">City</label>
+            <input type="text" class="form-control"  formControlName="city" required> 
+        </div>
+        <div>
+            <label for="float" >State :</label>
+           <select  formControlName="state">
+            <option value="maharashtra">--Select The State--</option>
+            <option value="maharashtra">Maharashtra</option>
+            <option value="Gujarat">Gujarat</option>
+           </select>
+        </div>
+    </div>
+    <div>
+        <label for="float" class="form-label">Gender</label>
+        <input type="radio" class="form-check-input" formControlName="gender"  name="gender" value="Male" required>
+        <label for="male" class="form-control-label">Male</label>
+        <input type="radio" class="form-check-input" formControlName="gender" name="gender" value="FeMale" required>
+        <label for="female" class="form-control-label">Female</label>
+
+    </div>
+    <div>
+        <ng-container *ngFor="let item of skillArray;let i=index">
+           <p>{{item}}</p>
+
+
+        </ng-container>
+        <div>
+
+            <input type="text" class="form-control w-25" placeholder="skill Name" #sid>
+    
+            <button (click)="addSkills(sid.value)" class="btn btn-dark mt-3 w-25">+Add Skills</button>
+        </div>
+    </div>
+<button type="submit" class="btn btn-primary mt-3 w-100" (click)="postData()">Submit</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th scope="row">
+            StudentID
+        </th>
+        <th scope="row">
+            StudentName
+        </th>
+        <th scope="row">
+            StudentGender
+        </th>
+        <th  scope="row" colspan="4">
+            Address
+        </th>
+        <th scope="row">
+          Skills
+        </th>
+    </tr>
+    <tr *ngFor="let item of dataArray">
+        <td scope="row">{{item.id}}</td>
+        <td scope="row">{{item.name}}</td>
+        <td scope="row">{{item.gender}}</td>
+       
+        <ng-container *ngFor="let ad of item.address|keyvalue">
+            <td scope="row" *ngIf="ad">{{" "+ad.value}} </td>
+        </ng-container>
+
+        <ng-container *ngFor="let ad of item.skills">
+            <td scope="row">{{""+ad}}</td>
+        </ng-container>
+    </tr>
+</table>
